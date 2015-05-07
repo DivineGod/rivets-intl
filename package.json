@@ -1,6 +1,6 @@
 {
   "name": "rivets-intl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Rivets.js component for internationalization",
   "main": "dist/rivets-intl.js",
   "scripts": {
