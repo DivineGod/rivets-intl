@@ -27,3 +27,7 @@ Then bind data
     var data = { full_name: "Black Widow" };
     Rivets.bind(template, data);
 ```
+
+The result will be a string: 
+
+```Hello, Black Widow```
