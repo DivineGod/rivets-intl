@@ -1,0 +1,15 @@
+{
+    "esnext": true,
+    "asi": false,
+    "expr": true,
+    "loopfunc": true,
+    "curly": false,
+    "evil": true,
+    "white": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "predef": [
+    ],
+    "indent": 2
+}
