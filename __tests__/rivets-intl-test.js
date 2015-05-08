@@ -74,6 +74,47 @@ describe('intl', function() {
 
       expect(message).toBeUndefined();
     });
+    it('returns undefined with bad input', () => {
+      let message;
+      message = getMessage();
+      expect(message).toBeUndefined();
+
+      message = getMessage("");
+      expect(message).toBeUndefined();
+
+      message = getMessage("", "");
+      expect(message).toBeUndefined();
+
+      message = getMessage([], 1);
+      expect(message).toBeUndefined();
+
+      message = getMessage({ }, "test");
+      expect(message).toBeUndefined();
+
+      message = getMessage({}, "", "");
+      expect(message).toBeUndefined();
+
+      message = getMessage({}, "", 1);
+      expect(message).toBeUndefined();
+
+      message = getMessage({}, "test", "");
+      expect(message).toBeUndefined();
+
+      message = getMessage({}, "test.more", "");
+      expect(message).toBeUndefined();
+
+      message = getMessage({}, "test", "hero");
+      expect(message).toBeUndefined();
+
+      message = getMessage({"US": { test: 'moose' }}, "test", "hero-US");
+      expect(message).toBeUndefined();
+
+      message = getMessage([], "test", "hero-US");
+      expect(message).toBeUndefined();
+
+      message = getMessage(new Date(), "test", "hero-US");
+      expect(message).toBeUndefined();
+    });
   });
 
   describe('IntlComponent', () => {

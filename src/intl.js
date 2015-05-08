@@ -2,13 +2,15 @@ import createFromCache from 'intl-format-cache';
 import IntlMessageFormat from 'intl-messageformat';
 
 export function getMessage(messages, messagePath, locale) {
+  if(!locale || typeof locale !== 'string') { return; }
+  if(!messagePath || typeof messagePath !== 'string') { return; }
   let pathParts = messagePath.split('.');
   let message;
   let oldLocale;
 
   do {
     oldLocale = locale;
-    message = pathParts.reduce(function(obj, path) { return obj[path]; }, messages[locale]);
+    message = pathParts.reduce(function(obj, path) { if(obj) { return obj[path]; } }, messages[locale]);
     locale = locale.split('-')[0];
     if(locale == oldLocale) { break; }
   } while (!message);
