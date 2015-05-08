@@ -19,20 +19,25 @@ export function getMessage(messages, messagePath, locale) {
   return message;
 }
 
-let IntlTranslationComponent = function(data, messages, locale) {
-  this.key = data.key;
-  this.translation = () => {
-    var messageFormat = createFromCache(IntlMessageFormat);
-    var result = [];
-    for (var i in data) {
-      if (typeof this[i] === 'undefined') this[i] = data[i];
-      result.push(this[i]);
-    }
-    let msg = getMessage(messages, this.key, locale);
-    let msgFormat = messageFormat(msg, [locale]);
-    return msgFormat.format(this);
+
+function componentFactory(data, messages, locale) {
+  let key = data.key;
+  let msg = getMessage(messages, key, locale);
+  let messageFormat = createFromCache(IntlMessageFormat);
+  let msgFormat = messageFormat(msg, [locale]);
+
+  let IntlTranslationComponent = function() {
+    this.translation = () => {
+      /* Rivets updates data with getters and setters */
+      for (var i in data) {
+        if (typeof this[i] === 'undefined') this[i] = data[i];
+      }
+      return msgFormat.format(this);
+    };
   };
-};
+
+  return new IntlTranslationComponent();
+}
 
 
 export default function(messages = {}, locale = 'en') {
@@ -52,7 +57,7 @@ export default function(messages = {}, locale = 'en') {
       /**
       * this is a rivets.View instance
       */
-      return new IntlTranslationComponent(data, messages, locale);
+      return componentFactory(data, messages, locale);
     }
   };
 }
